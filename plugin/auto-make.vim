@@ -18,7 +18,7 @@ endif
 
 function! s:FileCheck()
     let i = 0
-    let org = expand('%:p:h')
+    let org = getcwd()
     let dir = org.'/'
     while i < g:auto_make_cdloop
         if !filereadable(dir.g:auto_make_makefile)
