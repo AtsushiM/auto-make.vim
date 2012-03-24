@@ -1,5 +1,5 @@
 "AUTHOR:   Atsushi Mizoue <asionfb@gmail.com>
-"WEBSITE:  https://github.com/AtsushiM/FastProject.vim
+"WEBSITE:  https://github.com/AtsushiM/auto-make.vim
 "VERSION:  0.9
 "LICENSE:  MIT
 
@@ -11,6 +11,9 @@ if !exists("g:auto_make_cdloop")
 endif
 if !exists("g:auto_make_makefile")
     let g:auto_make_makefile = 'Makefile'
+endif
+if !exists("g:auto_make_cmd")
+    let g:auto_make_cmd = 'make&'
 endif
 
 function! s:FileCheck()
@@ -35,13 +38,13 @@ function! s:FileCheck()
         return dir
     endif
 endfunction
+
 function! s:Make()
     let dir = getcwd()
     let check = s:FileCheck()
     if check != ''
         exec 'silent cd '.check
-        let cmd = 'make&'
-        silent call system(cmd)
+        silent call system(g:auto_make_cmd)
         exec 'silent cd '.dir
     endif
 endfunction
@@ -49,8 +52,17 @@ endfunction
 command! Make call s:FPMake()
 
 " auto make
-if g:auto_make_file != []
-    for e in g:auto_make_file
-        exec 'au BufWritePost *.'.e.' call <SID>Make()'
-    endfor
-endif
+function! s:SetAutoCmd()
+    if type(g:auto_make_file) != 3
+        let file = [g:auto_make_file]
+    else
+        let file = g:auto_make_file
+    endif
+
+    if file != []
+        for e in file
+            exec 'au BufWritePost *.'.e.' call <SID>Make()'
+        endfor
+    endif
+endfunction
+au VimEnter * call s:SetAutoCmd()
