@@ -1,0 +1,18 @@
+ファイル保存時、自動的にmakeコマンドを実行するプラグインです。
+編集したファイルからディレクトリを遡ってMakefileが存在した時点でmakeコマンドを実行します。
+
+" 保存時、実行するファイルを指定
+" 例：jsファイルで実行する場合
+let g:auto_make_file = 'js'
+
+" 例：js,phpで実行する場合
+let g:auto_make_file = ['js', 'php']
+
+" ディレクトリを遡る最大数
+let g:auto_make_cdloop = 5
+
+" 発見した場合にmakeコマンドを実行
+let g:auto_make_makefile = 'Makefile'
+
+" 実行するコマンド
+let g:auto_make_cmd = 'make&'

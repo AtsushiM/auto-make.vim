@@ -16,41 +16,6 @@ if !exists("g:auto_make_cmd")
     let g:auto_make_cmd = 'make&'
 endif
 
-function! s:FileCheck()
-    let i = 0
-    let org = getcwd()
-    let dir = org.'/'
-    while i < g:auto_make_cdloop
-        if !filereadable(dir.g:auto_make_makefile)
-            let i = i + 1
-            let dir = dir.'../'
-        else
-            exec 'silent cd '.dir
-            let dir = getcwd()
-            exec 'silent cd '.org
-            break
-        endif
-    endwhile
-
-    if i == g:auto_make_cdloop
-        return ''
-    else
-        return dir
-    endif
-endfunction
-
-function! s:Make()
-    let dir = getcwd()
-    let check = s:FileCheck()
-    if check != ''
-        exec 'silent cd '.check
-        silent call system(g:auto_make_cmd)
-        exec 'silent cd '.dir
-    endif
-endfunction
-
-command! Make call s:FPMake()
-
 " auto make
 function! s:SetAutoCmd()
     if type(g:auto_make_file) != 3
@@ -61,7 +26,7 @@ function! s:SetAutoCmd()
 
     if file != []
         for e in file
-            exec 'au BufWritePost *.'.e.' call <SID>Make()'
+            exec 'au BufWritePost *.'.e.' call automake#Make()'
         endfor
     endif
 endfunction
