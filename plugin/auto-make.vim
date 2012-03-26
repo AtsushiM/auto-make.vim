@@ -16,12 +16,15 @@ if !exists("g:auto_make_cmd")
     let g:auto_make_cmd = 'make&'
 endif
 
+command! AutoMakeEdit call automake#Edit()
+command! AutoMakeCreate call automake#Create()
+
 " auto make
-function! s:SetAutoCmd()
-    if type(g:auto_make_file) != 3
-        let file = [g:auto_make_file]
+function! s:SetAutoCmd(files)
+    if type(a:files) != 3
+        let file = [a:files]
     else
-        let file = g:auto_make_file
+        let file = a:files
     endif
 
     if file != []
@@ -30,4 +33,4 @@ function! s:SetAutoCmd()
         endfor
     endif
 endfunction
-au VimEnter * call s:SetAutoCmd()
+au VimEnter * call s:SetAutoCmd(g:auto_make_file)
