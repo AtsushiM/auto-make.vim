@@ -38,9 +38,24 @@ function! automake#Edit()
     endif
 endfunction
 
+function! automake#Template()
+    if !filereadable(g:auto_make_makefiledir.g:auto_make_makefile)
+        let org = getcwd()
+        exec 'cd '.g:auto_make_makefiledir
+        call writefile([], g:auto_make_makefile)
+        exec 'cd '.org
+    endif
+
+    exec 'e '.g:auto_make_makefiledir.g:auto_make_makefile
+endfunction
+
 function! automake#Create()
     if !filereadable(g:auto_make_makefile)
-        call writefile([], g:auto_make_makefile)
-        exec 'e '.g:auto_make_file
+        if filereadable(g:auto_make_makefiledir.g:auto_make_makefile)
+            call writefile(readfile(g:auto_make_makefiledir.g:auto_make_makefile), g:auto_make_makefile)
+        else
+            call writefile([], g:auto_make_makefile)
+        endif
+        exec 'e '.g:auto_make_makefile
     endif
 endfunction
