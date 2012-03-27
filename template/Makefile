@@ -1,6 +1,6 @@
-SRC = js/main.js js/ather.js
-COMBINE = js/main.combine.js
-COMPRESS = js/main.min.js
+SRC = file1 file2
+COMBINE = file_combine
+# COMPRESS = file_min
  
 $(COMBINE) : $(SRC)
 	cat $^ > $@

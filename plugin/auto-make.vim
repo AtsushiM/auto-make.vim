@@ -7,7 +7,7 @@ let g:auto_make_plugindir = expand('<sfile>:p:h:h').'/'
 let g:auto_make_templatedir = g:auto_make_plugindir.'template/'
 
 if !exists("g:auto_make_file")
-    let g:auto_make_file = []
+    let g:auto_make_file = ['*']
 endif
 if !exists("g:auto_make_cdloop")
     let g:auto_make_cdloop = 5
