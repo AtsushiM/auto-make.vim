@@ -3,6 +3,18 @@
 
 !デフォルトでは拡張子に関係なく、ファイル保存時にmakeコマンドが実行されます
 
+" コマンド
+:AutoMakeCreate
+現在のディレクトリにMakefileを作成します
+
+:AutoMakeEdit
+auto-make.vimでmakeされるMakefileを検索し、開きます
+Makefileが存在しない場合、何もしません
+
+:AutoMakeTemplate
+AutoMakeCreateで生成されるMakefileのテンプレートを編集します
+
+" 設定
 " 指定した拡張子のファイル保存時にmake実行
 " 例：jsファイルで実行する場合
 let g:auto_make_file = ['js']
@@ -21,4 +33,7 @@ let g:auto_make_makefile = 'Makefile'
 let g:auto_make_cmd = 'make&'
 
 " エラー表示あり
-let g:auto_make_cmd = 'make&'
+let g:auto_make_cmd = 'make'
+
+" growlで通知(要：growlnotifyインストール)
+let g:auto_make_cmd = "make|growlnotify -t 'auto-make' -m 'make complete.'&"
