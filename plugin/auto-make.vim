@@ -12,9 +12,6 @@ endif
 if !exists("g:auto_make_cdloop")
     let g:auto_make_cdloop = 5
 endif
-if !exists("g:auto_make_cdloop")
-    let g:auto_make_cdloop = 5
-endif
 if !exists("g:auto_make_makefile")
     let g:auto_make_makefile = 'Makefile'
 endif
