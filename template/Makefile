@@ -5,7 +5,10 @@ COMBINE = file_combine
 $(COMBINE) : $(SRC)
 	cat $^ > $@
 
+# gcc
 #	java -jar /Applications/gcc/compiler.jar --js $(COMBINE) --js_output_file $(COMPRESS)
+# gcc & growlnotify
+#	((java -jar /Applications/gcc/compiler.jar --js $(COMBINE) --js_output_file $(COMPRESS)) && growlnotify -t 'auto-make' -m 'make complete.') || growlnotify -t 'auto-make' -m 'make error.'
  
 .PHONY: clean
 clean :
