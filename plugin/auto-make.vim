@@ -3,6 +3,14 @@
 "VERSION:  0.9
 "LICENSE:  MIT
 
+if exists("g:loaded_auto_make")
+    finish
+endif
+let g:loaded_auto_make = 1
+
+let s:save_cpo = &cpo
+set cpo&vim
+
 if !exists("g:auto_make_file")
     let g:auto_make_file = ['*']
 endif
@@ -26,3 +34,5 @@ function! s:SetAutoCmd(files)
     endif
 endfunction
 au VimEnter * call s:SetAutoCmd(g:auto_make_file)
+
+let &cpo = s:save_cpo

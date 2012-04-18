@@ -3,6 +3,9 @@
 "VERSION:  0.9
 "LICENSE:  MIT
 
+let s:save_cpo = &cpo
+set cpo&vim
+
 let g:auto_make_plugindir = expand('<sfile>:p:h:h').'/'
 let g:auto_make_templatedir = g:auto_make_plugindir.'template/'
 if !exists("g:auto_make_cdloop")
@@ -79,3 +82,5 @@ function! automake#Create()
         exec 'e '.g:auto_make_makefile
     endif
 endfunction
+
+let &cpo = s:save_cpo
