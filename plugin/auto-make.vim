@@ -32,7 +32,10 @@ function! s:SetAutoCmd(files)
             exec 'au BufWritePost *.'.e.' call automake#Make()'
         endfor
     endif
+    unlet file
+    unlet s:SetAutoCmd
 endfunction
 au VimEnter * call s:SetAutoCmd(g:auto_make_file)
 
 let &cpo = s:save_cpo
+unlet s:save_cpo
