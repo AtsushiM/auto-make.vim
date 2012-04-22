@@ -15,6 +15,7 @@ if !exists("g:auto_make_file")
     let g:auto_make_file = ['*']
 endif
 
+command! ManualMake call automake#ManualMake()
 command! AutoMakeEdit call automake#Edit()
 command! AutoMakeCreate call automake#Create()
 command! AutoMakeTemplate call automake#Template()
@@ -33,7 +34,6 @@ function! s:SetAutoCmd(files)
         endfor
     endif
     unlet file
-    unlet s:SetAutoCmd
 endfunction
 au VimEnter * call s:SetAutoCmd(g:auto_make_file)
 

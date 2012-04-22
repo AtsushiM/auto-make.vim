@@ -17,6 +17,9 @@ endif
 if !exists("g:auto_make_cmd")
     let g:auto_make_cmd = 'make&'
 endif
+if !exists("g:auto_make_manural_cmd")
+    let g:auto_make_manural_cmd = 'make'
+endif
 if !exists("g:auto_make_makefiledir")
     let g:auto_make_makefiledir = $HOME.'/.automake/'
 endif
@@ -51,6 +54,24 @@ function! automake#Make()
         exec 'silent cd '.dir
         silent call system(g:auto_make_cmd)
         exec 'silent cd '.org
+    endif
+endfunction
+
+function! automake#ManualMake()
+    let dir = automake#Search()
+    if dir != ''
+        let org = getcwd()
+        exec 'silent cd '.dir
+        let er = system(g:auto_make_manural_cmd)
+        exec 'silent cd '.org
+
+        if er != ''
+            setlocal errorformat=%f:%l:%m
+            cgetexpr er
+            copen
+        else
+            copen
+        endif
     endif
 endfunction
 
