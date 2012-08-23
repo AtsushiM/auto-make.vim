@@ -8,6 +8,8 @@ set cpo&vim
 
 let g:auto_make_plugindir = expand('<sfile>:p:h:h').'/'
 let g:auto_make_templatedir = g:auto_make_plugindir.'template/'
+let g:auto_make_stoptext = '# auto-make stopped.'
+
 if !exists("g:auto_make_cdloop")
     let g:auto_make_cdloop = 5
 endif
@@ -29,6 +31,56 @@ if !isdirectory(g:auto_make_makefiledir)
     call system('cp '.g:auto_make_templatedir.'* '.g:auto_make_makefiledir)
 endif
 
+function! automake#Stop()
+    let dir = automake#Search()
+    let filename = dir.g:auto_make_makefile
+
+    let makefile = readfile(filename)
+
+    if makefile[0] != g:auto_make_stoptext
+        let makefile = insert(makefile, g:auto_make_stoptext)
+        call writefile(makefile, filename)
+    endif
+endfunction
+
+function! automake#Play()
+    let dir = automake#Search()
+    let filename = dir.g:auto_make_makefile
+
+    let makefile = readfile(filename)
+
+    if makefile[0] == g:auto_make_stoptext
+        call remove(makefile, 0)
+        call writefile(makefile, filename)
+    endif
+endfunction
+
+function! automake#Pause()
+    let g:auto_make_pause = 1
+endfunction
+
+function! automake#Resume()
+    let g:auto_make_pause = 0
+endfunction
+
+function! automake#Search()
+    let i = 0
+    let dir = expand('%:p:h').'/'
+    while i < g:auto_make_cdloop
+        if !filereadable(dir.g:auto_make_makefile)
+            let i = i + 1
+            let dir = dir.'../'
+        else
+            break
+        endif
+    endwhile
+
+    if i != g:auto_make_cdloop
+        return dir
+    endif
+    return ''
+endfunction
+
 function! automake#Search()
     let i = 0
     let dir = expand('%:p:h').'/'
@@ -49,12 +101,18 @@ endfunction
 
 function! automake#Make()
     let dir = automake#Search()
-    if dir != ''
+    if dir != '' && g:auto_make_pause == 0
         let org = getcwd()
         exec 'silent cd '.dir
-        silent call system(g:auto_make_cmd)
+
+        let makefile = readfile(g:auto_make_makefile)
+        if makefile[0] != g:auto_make_stoptext
+            silent call system(g:auto_make_cmd)
+        endif
+
         exec 'silent cd '.org
     endif
+
 endfunction
 
 function! automake#ManualMake()

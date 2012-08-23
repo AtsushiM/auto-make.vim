@@ -14,11 +14,18 @@ set cpo&vim
 if !exists("g:auto_make_file")
     let g:auto_make_file = ['*']
 endif
+if !exists("g:auto_make_pause")
+    let g:auto_make_pause = 0
+endif
 
 command! ManualMake call automake#ManualMake()
 command! AutoMakeEdit call automake#Edit()
 command! AutoMakeCreate call automake#Create()
 command! AutoMakeTemplate call automake#Template()
+command! AutoMakePause call automake#Pause()
+command! AutoMakeResume call automake#Resume()
+command! AutoMakeStop call automake#Stop()
+command! AutoMakePlay call automake#Play()
 
 " auto make
 function! s:SetAutoCmd(files)
