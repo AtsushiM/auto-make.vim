@@ -14,6 +14,26 @@ Makefileが存在しない場合、何もしません
 :AutoMakeTemplate
 AutoMakeCreateで生成されるMakefileのテンプレートを編集します
 
+:AutoMakePause
+AutoMakeを一時的に停止します。
+Vimを再起動した場合、一時停止は解除されます。
+
+:AutoMakeResume
+AutoMakeの一時停止を解除します。
+
+:AutoMakeStop
+現在ファイルから実行されるAutoMakeを停止します。
+Makefileの1行目に
+# auto-make stopped.
+の行が追加されます。
+
+:AutoMakePlay
+現在ファイルから実行されるAutoMakeを停止を解除します。
+Makefileの1行目が
+# auto-make stopped.
+となっていた場合、この行が取り除かれます。
+
+
 " 設定
 " 指定した拡張子のファイル保存時にmake実行
 " 例：jsファイルで実行する場合
