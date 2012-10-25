@@ -14,6 +14,9 @@ set cpo&vim
 if !exists("g:auto_make_file")
     let g:auto_make_file = ['*']
 endif
+if !exists("g:auto_make_update_ext")
+    let g:auto_make_update_ext = ''
+endif
 if !exists("g:auto_make_pause")
     let g:auto_make_pause = 0
 endif
@@ -27,7 +30,16 @@ command! AutoMakeResume call automake#Resume()
 command! AutoMakeStop call automake#Stop()
 command! AutoMakePlay call automake#Play()
 
-" auto make
+" auto
+" function! s:SetAutoSRC(ext)
+"     let ext = a:ext
+"
+"     if file != ''
+"         exec 'au BufWritePost *.'.ext.' call automake#SRCUpdate()'
+"     endif
+"     unlet ext
+" endfunction
+" au VimEnter * call s:SetAutoSRC(g:auto_make_update_ext)
 function! s:SetAutoCmd(files)
     if type(a:files) != 3
         let file = [a:files]

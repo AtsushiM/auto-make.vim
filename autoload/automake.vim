@@ -162,4 +162,16 @@ function! automake#Create()
     endif
 endfunction
 
+function! automake#SRCUpdate()
+    let dir = automake#Search()
+    if dir != ''
+        let file = readfile(dir.g:auto_make_makefile)
+        let srcs = join(reverse(split(glob(expand('%:h').'/*.js', "\n"))), ' ')
+
+        let file[0] = 'SRC = '.srcs
+
+        call writefile(file, dir.g:auto_make_makefile)
+    endif
+endfunction
+
 let &cpo = s:save_cpo
