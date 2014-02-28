@@ -81,24 +81,6 @@ function! automake#Search()
     return ''
 endfunction
 
-function! automake#Search()
-    let i = 0
-    let dir = expand('%:p:h').'/'
-    while i < g:auto_make_cdloop
-        if !filereadable(dir.g:auto_make_makefile)
-            let i = i + 1
-            let dir = dir.'../'
-        else
-            break
-        endif
-    endwhile
-
-    if i != g:auto_make_cdloop
-        return dir
-    endif
-    return ''
-endfunction
-
 function! automake#Make()
     let dir = automake#Search()
     if dir != '' && g:auto_make_pause == 0
