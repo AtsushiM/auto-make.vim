@@ -31,14 +31,16 @@ AutoMakeの一時停止を解除します。
 ## :AutoMakeStop
 現在ファイルから実行されるAutoMakeを停止します。
 Makefileの1行目に
+```
 # auto-make stopped.
+```
 の行が追加されます。
 
 ## :AutoMakePlay
 現在ファイルから実行されるAutoMakeを停止を解除します。
 Makefileの1行目が
 ```
-\# auto-make stopped.
+# auto-make stopped.
 ```
 となっていた場合、この行が取り除かれます。
 
