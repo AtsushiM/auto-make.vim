@@ -3,8 +3,10 @@
 編集したファイルからディレクトリを遡ってMakefileが存在した時点でmakeコマンドを実行します。
 
 # install
+```
 NeoBundle 'AtsushiM/search-parent.vim'
 NeoBundle 'AtsushiM/auto-make.vim'
+```
 
 !デフォルトでは拡張子に関係なく、ファイル保存時にmakeコマンドが実行されます
 
