@@ -8,10 +8,10 @@ NeoBundle 'AtsushiM/search-parent.vim'
 NeoBundle 'AtsushiM/auto-make.vim'
 ```
 
-!デフォルトでは拡張子に関係なく、ファイル保存時にmakeコマンドが実行されます
+デフォルトでは拡張子に関係なく、ファイル保存時にmakeコマンドが実行されます
 
 # コマンド
-:AutoMakeCreate
+## :AutoMakeCreate
 現在のディレクトリにMakefileを作成します
 
 ## :AutoMakeEdit
