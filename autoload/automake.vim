@@ -64,7 +64,8 @@ function! automake#Resume()
 endfunction
 
 function! automake#Search()
-    return searchparent#File(g:auto_make_makefile)
+    let path = searchparent#File(g:auto_make_makefile)
+    return fnamemodify(path, ':h').'/'
 endfunction
 
 function! automake#Make()
