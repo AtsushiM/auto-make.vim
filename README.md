@@ -38,7 +38,7 @@ Makefileの1行目に
 現在ファイルから実行されるAutoMakeを停止を解除します。
 Makefileの1行目が
 ```
-# auto-make stopped.
+\# auto-make stopped.
 ```
 となっていた場合、この行が取り除かれます。
 
